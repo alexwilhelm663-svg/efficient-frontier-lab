@@ -1,14 +1,17 @@
 {
   "name": "efficient-frontier-lab",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Interaktives Markowitz-Labor: Portfoliorisiko, Effizienzkurve und Sharpe-Ratio.",
+  "description": "Konkrete Anlageideen nach Risikoprofil, mit Produktquellen und ergänzendem Portfolio-Rechenlabor.",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "start": "node scripts/serve.mjs",
     "test": "node --test",
     "build": "node scripts/build.mjs",
-    "analyse": "node scripts/analyse.mjs"
+    "analyse": "node scripts/analyse.mjs",
+    "test:browser": "node scripts/browser-check.mjs && node scripts/finder-browser-check.mjs"
   }
 }

@@ -1,29 +1,23 @@
-# Projektplan
+# Weitere Schritte
 
-## Version 1.0 – implementiert
+## Umgesetzt in Version 2
 
-- [x] Unabhängiger Rechenkern mit validierten jährlichen Annahmen.
-- [x] Seed-basierte Simulation und separate Stichproben-Hülle.
-- [x] Optimierte Long-only-Effizienzkurve, Minimum-Varianz und Maximum-Sharpe.
-- [x] Höchste Rendite im gewählten Risikobudget.
-- [x] Deutsche Oberfläche für Desktop und Smartphone.
-- [x] JSON-Annahmen und CSV-Export.
-- [x] Node-Tests, unabhängiger SciPy-Abgleich und CI-Workflow.
-- [x] Manueller GitHub-Pages-Workflow vorbereitet.
+- Risikoabfrage und konkrete, belegte Produktbeispiele.
+- Erklärte Auswahl- und Ausschlussregeln.
+- Getrennte Betrachtung von Verlusttragfähigkeit und Verlusttoleranz.
+- Private Verarbeitung im Browser und JSON-Download.
+- Eigenständiges Rechenlabor für hypothetische Annahmen.
+- Automatisierte Tests für Rechenkern, Profilauswahl und Browserabläufe.
 
-## Mögliche nächste Ausbaustufe
+## Mögliche Erweiterungen
 
-1. **Eigene historische Daten:** bereinigte Kurs-CSV importieren, gemeinsame
-   Handelstage prüfen, fehlende Werte sichtbar machen und einfache Renditen
-   konsistent annualisieren. Krypto mit 365 Tagen und Aktien mit Handelstagen
-   nicht unkontrolliert zusammenführen.
-2. **Stabilität statt Scheingenauigkeit:** Schätzunsicherheit, Korrelationsstress,
-   Bootstrap-Bänder und Gewichtssensitivität zeigen.
-3. **Praktische Grenzen:** maximale Einzelgewichte, Transaktionskosten,
-   Umschichtungsgrenzen und ein explizites Cash-Asset modellieren.
-4. **Optionaler Elliott-Anschluss:** technische Signale können später die
-   zulässigen Assets oder Gewichtungsgrenzen beeinflussen. Bestehende
-   Wellenregeln, Invalidation und 1–2-Setups bleiben eigenständig. Vor Nutzung
-   Point-in-Time-Daten und Walk-forward-Prüfung einführen.
+- Einen größeren Produktkatalog mit regelmäßiger Quellenprüfung aufbauen.
+- Aktuelle Kosten, Vertriebsland und Broker-Verfügbarkeit erfassen.
+- Bestehende Anlagen, Einkommen, Verpflichtungen und Anlageziele berücksichtigen.
+- Historische Marktzeitreihen mit überprüfbarer Quelle und Aktualitätsanzeige
+  einbinden; Datenlücken, Währungen und Ausschüttungen sauber behandeln.
+- Erst danach nachvollziehbare Portfoliogewichte, Überschneidungen und
+  Belastungsszenarien ergänzen.
 
-Diese Erweiterungen sind nicht Bestandteil der ausgelieferten Version 1.0.
+Historische Werte wären auch dann keine Garantie für künftige Renditen oder
+maximale Verluste. Automatische Orders sind nicht Bestandteil des Projekts.

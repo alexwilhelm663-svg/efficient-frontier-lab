@@ -26,7 +26,7 @@ try {
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
   const origin = `http://127.0.0.1:${port}`;
-  await page.goto(origin);
+  await page.goto(origin + '/lab.html');
   await page.waitForFunction(() => document.querySelector('#metrics')?.textContent.includes('9,06'));
   assert.match(await page.locator('#comparison-body').innerText(), /19,6 %/);
   assert.equal(await page.locator('#error').isVisible(), false);

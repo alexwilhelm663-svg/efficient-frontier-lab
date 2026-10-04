@@ -8,7 +8,7 @@ const port = Number(process.env.PORT || 8080);
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.svg': 'image/svg+xml' };
 // Allow only application files; never expose .git or local configuration.
 function allowed(relative) {
-  return ['index.html', 'styles.css'].includes(relative) || /^(src|assets)\/[\w/-]+\.(js|svg)$/.test(relative);
+  return ['index.html', 'lab.html', 'styles.css', 'finder.css'].includes(relative) || /^(src|assets)\/[\w/-]+\.(js|svg)$/.test(relative);
 }
 const server = http.createServer(async (req, res) => {
   try {

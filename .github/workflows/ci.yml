@@ -1,7 +1,7 @@
 name: Test
 on:
   push:
-    branches: [main]
+    branches: [main, 'codex/asset-finder-v2']
   pull_request:
 permissions:
   contents: read
@@ -18,3 +18,22 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm test
       - run: npm run build
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Install browser test tools
+        run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.51.1
+      - run: npx --no-install playwright install --with-deps chromium
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-previews
+          path: |
+            test-output/
+            docs/preview-*.png

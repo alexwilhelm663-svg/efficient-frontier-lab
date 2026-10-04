@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101719">
+  <meta name="description" content="Verstehe das Verhältnis von Rendite, Risiko und Diversifikation. Ein interaktives Markowitz-Labor mit transparenten Annahmen.">
+  <title>Rechenlabor · Frontier Lab</title>
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Zum Inhalt</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Efficient Frontier Lab Startseite">
+      <img src="./assets/icon.svg" width="34" height="34" alt="">
+      <span>FRONTIER<span class="brand-light"> / LAB</span></span>
+    </a>
+    <div class="header-right"><a href="./">← Zum Asset-Finder</a><span class="version">Rechenlabor</span></div>
+  </header>
+  <main id="main">
+    <section class="intro">
+      <div><p class="eyebrow">RECHENLABOR · EIGENE ANNAHMEN</p><h1>Mehr aus deinem<br><span>Risikobudget machen.</span></h1>
+      <p class="intro-copy">Dieses Labor rechnet mit frei gewählten Annahmen und drei Beispiel-Assets. Konkrete Anlagen nach deinem Risikoprofil findest du im <a href="./">Asset-Finder</a>.</p></div>
+      <div class="intro-note"><span class="note-index">01 / DAS PRINZIP</span><p>Nicht nur die einzelnen Assets zählen.<br><strong>Entscheidend ist ihr Zusammenspiel.</strong></p><a href="#method">So funktioniert das Modell <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <noscript>Bitte JavaScript aktivieren, damit das Portfolio-Labor rechnen kann.</noscript>
+    <div id="error" class="error" role="alert" hidden></div>
+    <div class="workspace">
+      <aside class="panel controls">
+        <div class="panel-heading"><div><p class="eyebrow">01 / ANNAHMEN</p><h2>Dein Anlageuniversum</h2></div><button id="reset" class="text-button" type="button">Zurücksetzen</button></div>
+        <p class="subtle">Drei frei benennbare Assets. Alle Werte pro Jahr.</p>
+        <form id="config-form">
+          <div id="asset-inputs"></div>
+          <fieldset class="correlation"><legend>Wie ähnlich bewegen sich die Assets?</legend>
+            <label>A ↔ B <input id="corr-0-1" name="corr01" type="number" min="-1" max="1" step="any" required></label>
+            <label>A ↔ C <input id="corr-0-2" name="corr02" type="number" min="-1" max="1" step="any" required></label>
+            <label>B ↔ C <input id="corr-1-2" name="corr12" type="number" min="-1" max="1" step="any" required></label>
+            <p class="field-hint">−1 gegenläufig · 0 unkorreliert · +1 gleichläufig</p>
+          </fieldset>
+          <div class="input-grid two"><label>Vergleichszins, %<input id="risk-free" type="number" min="-100" max="500" step="any" required></label><label>Portfolios<select id="sample-count"><option value="1000">1.000</option><option value="5000">5.000</option><option value="20000">20.000</option></select></label></div>
+          <details class="advanced"><summary>Reproduzierbarkeit & Dateien</summary>
+            <label>Zufallsseed<input id="seed" type="number" min="0" max="4294967295" step="1" required></label>
+            <div class="file-actions"><button type="button" id="save-config" class="secondary">JSON exportieren</button><label class="secondary file-label" for="import-config">JSON importieren<input type="file" id="import-config" accept="application/json,.json"></label></div>
+            <p class="field-hint">Dateien bleiben auf deinem Gerät. Import erwartet drei Assets.</p>
+          </details>
+          <button id="calculate" type="submit" class="primary">Portfolio-Raum berechnen <span aria-hidden="true">↗</span></button>
+          <p id="input-status" class="field-hint" aria-live="polite">Beispiel aus dem Video · angenommene Werte</p>
+        </form>
+      </aside>
+
+      <section class="results" aria-label="Portfolio-Ergebnisse">
+        <div class="metrics" id="metrics" aria-live="polite"></div>
+        <section class="panel chart-panel" aria-labelledby="chart-title">
+          <div class="panel-heading chart-heading"><div><p class="eyebrow">02 / MÖGLICHKEITEN</p><h2 id="chart-title">Die Effizienzkurve</h2></div><span id="sample-badge" class="badge">5.000 Portfolios</span></div>
+          <div class="chart-wrap"><canvas id="chart" role="img" aria-label="Rendite-Risiko-Diagramm: Simulation und berechnete Effizienzkurve. Kennzahlen und Gewichtungen stehen in der Tabelle darunter."></canvas><div id="chart-tooltip" class="tooltip" hidden></div></div>
+          <div class="chart-legend"><span><i class="legend-dot cloud"></i>Simulation</span><span><i class="legend-line"></i>Optimierte Kurve</span><span><i class="legend-dot best"></i>Max. Sharpe</span><span><i class="legend-dot chosen"></i>Dein Budget</span></div>
+          <div class="chart-footer"><label><input type="checkbox" id="show-envelope"> Stichproben-Hülle zeigen</label><span id="envelope-count"></span></div>
+        </section>
+
+        <section class="panel budget-panel" aria-labelledby="budget-title">
+          <div class="budget-top"><div><p class="eyebrow">03 / DEIN RISIKOBUDGET</p><h2 id="budget-title">Schwankung im Modell begrenzen</h2></div><label class="budget-number"><span class="sr-only">Risikobudget in Prozent pro Jahr</span><input id="risk-budget-number" type="number" min="0" max="500" step="any" value="18"><span>% p.a.</span></label></div>
+          <label for="risk-budget" class="sr-only">Risikobudget verändern</label><input id="risk-budget" type="range" min="0" max="30" step="0.1" value="18">
+          <div class="range-labels"><span>Weniger Schwankung</span><span>Mehr Schwankung</span></div>
+          <div id="budget-result" aria-live="polite"></div>
+        </section>
+      </section>
+    </div>
+
+    <section class="panel comparison" aria-labelledby="comparison-title"><div class="panel-heading"><div><p class="eyebrow">04 / IM VERGLEICH</p><h2 id="comparison-title">Die Mischungen hinter den Punkten</h2></div><button type="button" id="download-csv" class="secondary">Portfolios als CSV ↓</button></div>
+      <div class="table-scroll"><table><caption class="sr-only">Rendite, Risiko, Sharpe-Ratio und Asset-Gewichte aller Referenzportfolios</caption><thead id="comparison-head"></thead><tbody id="comparison-body"></tbody></table></div>
+      <p class="table-footnote">Sharpe = (erwartete Rendite − Vergleichszins) / Volatilität. Der Zins ist eine Vergleichsgröße; Cash ist kein zusätzliches Asset.</p>
+    </section>
+
+    <section id="method" class="method"><div><p class="eyebrow">DAS MODELL VERSTEHEN</p><h2>Gleiche Assets.<br>Andere Möglichkeiten.</h2><p>Long-only: keine Leerverkäufe, kein Hebel.<br>Die Gewichte ergeben immer 100 %.</p></div><div class="method-cards">
+      <article><span>01</span><h3>Jeder Punkt ist eine Mischung</h3><p>Der Zufallsseed erzeugt reproduzierbare Gewichte. Rendite und Risiko folgen aus deinen Annahmen, nicht aus einer Prognose.</p></article>
+      <article><span>02</span><h3>Die Kurve zeigt die effizienten Portfolios</h3><p>Für jede Zielrendite suchen wir die Mischung mit der niedrigsten Varianz. Die obere Kurve beginnt beim Portfolio mit dem geringsten Risiko.</p></article>
+      <article><span>03</span><h3>Korrelation verändert den Nutzen</h3><p>Wenn Assets weniger gleichläufig sind, kann ihre Mischung weniger schwanken. Volatilität erfasst dabei weder maximalen Verlust noch alle Extremrisiken.</p></article>
+    </div></section>
+    <div class="model-note"><strong>Annahmen sichtbar halten.</strong> Die Startwerte sind ein Lernbeispiel. Erwartete Renditen und Korrelationen können sich ändern; Kosten, Steuern und Liquiditätsgrenzen fehlen im Modell. Ergebnisse sind keine Kauf- oder Verkaufssignale.</div>
+  </main>
+  <footer><span>FRONTIER / LAB <span class="muted">· v2.0.0</span></span><div><a href="https://vm.tiktok.com/ZGdCREGyc/" target="_blank" rel="noopener noreferrer">Inspiration: QuantFinanceToGo ↗</a><a href="https://doi.org/10.1111/j.1540-6261.1952.tb01525.x" target="_blank" rel="noopener noreferrer">Markowitz, 1952 ↗</a></div></footer>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
