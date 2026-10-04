@@ -83,7 +83,7 @@ try {
   await submit();
   assert.equal((await visibleIds()).includes('bitcoin'), false);
 
-  for (const input of await page.locator('[name="types"]:checked').all()) await input.uncheck();
+  for (const input of await page.locator('[name="types"]').all()) await input.uncheck();
   await page.locator('[type="submit"]').click();
   assert.match(await page.locator('#form-error').innerText(), /mindestens eine Anlageart/);
   assert.equal(await page.locator('#result-content').isVisible(), false);
