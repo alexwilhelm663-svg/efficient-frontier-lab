@@ -1,0 +1,20 @@
+name: Fehler
+description: Rechenfehler oder Bedienproblem melden
+body:
+  - type: textarea
+    id: actual
+    attributes:
+      label: Beobachtetes Verhalten
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Erwartetes Verhalten
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Schritte, Browser und Annahmen
+      description: Wenn möglich die exportierte Annahmen-JSON anhängen; keine persönlichen Depotdaten.

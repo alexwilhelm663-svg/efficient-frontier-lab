@@ -1,0 +1,12 @@
+{
+  "assets": [
+    { "name": "A · Anleihen", "expectedReturn": 0.04, "volatility": 0.06 },
+    { "name": "B · Aktien", "expectedReturn": 0.07, "volatility": 0.18 },
+    { "name": "C · Wachstumsaktien", "expectedReturn": 0.11, "volatility": 0.25 }
+  ],
+  "correlation": [[1, 0, 0], [0, 1, 0.5], [0, 0.5, 1]],
+  "riskFreeRate": 0.03,
+  "count": 5000,
+  "seed": 42,
+  "riskBudget": 0.18
+}
